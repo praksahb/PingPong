@@ -22,11 +22,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private TimerTextController timerTextController;
 
-    private float countUpTimer = 0;
-
     [SerializeField]
-    private int countDownTimer;
-
+    private float countDownTimer = 3;
+    [SerializeField]
+    private int topScore;
+    private bool isTimerRunning;
 
     private void Awake()
     {
@@ -34,21 +34,27 @@ public class GameManager : MonoBehaviour
 
         player1 = new Players(Player.red);
         player2 = new Players(Player.blue);
+
+        if(Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+        }
     }
 
     private void Start()
     {
-        ballController.StartBallMovement();
+        isTimerRunning = true;
+        countDownTimer = 3;
     }
 
     private void Update()
     {
-        if (player1.score >= 5)
+        if (player1.score >= topScore)
         {
             GameWon(player1.player);
         }
 
-        if (player2.score >= 5)
+        if (player2.score >= topScore)
         {
             GameWon(player2.player);
         }
@@ -56,22 +62,21 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //if (countDownTimer >= 0)
-        //{
-        //    countUpTimer += Time.fixedDeltaTime;
-        //    if (countUpTimer >= 1)
-        //    {
-        //        timerTextController.SetTimerValue(countDownTimer--);
-        //        countUpTimer = 0;
-        //    }
-        //}
-
-        //if(countDownTimer <= 0)
-        //{
-        //    countDownTimer = 0;
-        //    timerTextController.gameObject.SetActive(false);
-        //    ballController.StartBallMovement();
-        //}
+        if (isTimerRunning)
+        {
+            if (countDownTimer > 0)
+            {
+                countDownTimer -= Time.fixedDeltaTime;
+                Debug.Log(countDownTimer);
+                timerTextController.DisplayTime(countDownTimer);
+            }
+            else
+            {
+                countDownTimer = 0;
+                isTimerRunning = false;
+                ballController.StartBallMovement();
+            }
+        }
 
     }
 
@@ -102,8 +107,8 @@ public class GameManager : MonoBehaviour
         }
 
         ballController.ResetBallPosition();
-
-        ballController.StartBallMovement();
+        isTimerRunning = true;
+        countDownTimer = 3;
     }
 
     public int TrackScore(Player pType)
@@ -133,8 +138,7 @@ public class GameManager : MonoBehaviour
     public void ReloadLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Time.timeScale = 1;
-        ballController.StartBallMovement();
+
     }
 }
 

@@ -12,22 +12,18 @@ public class TimerTextController : MonoBehaviour
         timerText = GetComponent<TextMeshProUGUI>();
     }
 
-    public void SetTimerValue(int value)
+    public void DisplayTime(float timeToDisplay)
     {
-        if (value < 0)
+        if(timeToDisplay > 0)
         {
-            timerValue = 0;
-        }
-        else
-        {
-            timerValue = value;
-        }
 
-        UpdateText();
+        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
+        float milliseconds = (timeToDisplay % 1 ) *100;
+        timerText.text = string.Format("{0:00}:{1:00}", seconds, milliseconds);
+        } else
+        {
+            timerText.text = string.Empty;
+        }
     }
 
-    private void UpdateText()
-    {
-        timerText.SetText("Ready: {0}", timerValue);
-    }
 }

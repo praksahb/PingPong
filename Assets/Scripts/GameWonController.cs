@@ -41,5 +41,6 @@ public class GameWonController : MonoBehaviour
     private void ReloadLevel()
     {
         GameManager.Instance.ReloadLevel();
+        Time.timeScale = 1;
     }
 }

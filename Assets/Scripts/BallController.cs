@@ -25,6 +25,14 @@ public class BallController : MonoBehaviour
 
     public void StartBallMovement()
     {
-        ballRb2d.AddForce(ballMoveSpeed, ForceMode2D.Impulse);
+        float randomNum = Random.Range(0, 2);
+        if(randomNum > 1)
+        {
+            ballRb2d.AddForce(ballMoveSpeed, ForceMode2D.Impulse);
+        } else
+        {
+            ballRb2d.AddForce(-ballMoveSpeed, ForceMode2D.Impulse);
+        }
+
     }
 }
