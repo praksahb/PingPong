@@ -21,6 +21,8 @@ public class BallController : MonoBehaviour
     public void ResetBallPosition()
     {
         transform.position = new Vector2(0, 0);
+        ballRb2d.velocity *= 0;
+        ballRb2d.angularVelocity = 0;
     }
 
     public void StartBallMovement()

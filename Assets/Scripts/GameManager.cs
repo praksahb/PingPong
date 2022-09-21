@@ -77,7 +77,6 @@ public class GameManager : MonoBehaviour
                 ballController.StartBallMovement();
             }
         }
-
     }
 
     private void CreateCheckSingleton()
@@ -107,8 +106,8 @@ public class GameManager : MonoBehaviour
         }
 
         ballController.ResetBallPosition();
-        isTimerRunning = true;
-        countDownTimer = 3;
+
+        ballController.StartBallMovement();
     }
 
     public int TrackScore(Player pType)
