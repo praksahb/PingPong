@@ -1059,6 +1059,7 @@ MonoBehaviour:
   scoreController: {fileID: 2039745390}
   timerTextController: {fileID: 1861637093}
   countDownTimer: 3
+  topScore: 5
 --- !u!4 &782771564
 Transform:
   m_ObjectHideFlags: 0
