@@ -1,5 +1,10 @@
 
 public enum Player
 {
-    left, right
+    red, blue
+}
+
+public enum BoundaryType
+{
+    leftBoundary, rightBoundary
 }
