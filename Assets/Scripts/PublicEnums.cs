@@ -6,5 +6,5 @@ public enum Player
 
 public enum BoundaryType
 {
-    leftBoundary, rightBoundary
+    leftBoundary, rightBoundary, topBoundary, bottomBoundary
 }

@@ -1,5 +1,16 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+public class Players
+{
+    public Player player;
+    public int score;
+
+    public Players(Player player)
+    {
+        this.player = player;
+        this.score = 0;
+    }
+}
 
 public class GameManager : MonoBehaviour
 {
@@ -31,7 +42,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         CreateCheckSingleton();
-
+        
         player1 = new Players(Player.red);
         player2 = new Players(Player.blue);
 
@@ -67,7 +78,6 @@ public class GameManager : MonoBehaviour
             if (countDownTimer > 0)
             {
                 countDownTimer -= Time.fixedDeltaTime;
-                Debug.Log(countDownTimer);
                 timerTextController.DisplayTime(countDownTimer);
             }
             else
@@ -107,7 +117,9 @@ public class GameManager : MonoBehaviour
 
         ballController.ResetBallPosition();
 
-        ballController.StartBallMovement();
+        countDownTimer = 3;
+        isTimerRunning = true;
+        //ballController.StartBallMovement();
     }
 
     public int TrackScore(Player pType)
@@ -138,17 +150,5 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-    }
-}
-
-public class Players
-{
-    public Player player;
-    public int score;
-
-    public Players(Player player)
-    {
-        this.player = player;
-        this.score = 0;
     }
 }

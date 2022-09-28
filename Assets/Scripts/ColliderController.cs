@@ -7,10 +7,29 @@ public class ColliderController : MonoBehaviour
 
 
     private BallController bController;
+    private PlayerMoveScript pController;
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if(boundaryType == BoundaryType.topBoundary)
+        {
+            pController = collision.gameObject.GetComponent<PlayerMoveScript>();
+            if(pController != null)
+            {
+                pController.ReachedMaxTop();
+            }
+        }
+        if (boundaryType == BoundaryType.bottomBoundary)
+        {
+            pController = collision.gameObject.GetComponent<PlayerMoveScript>();
+            if (pController != null)
+            {
+                pController.ReachedMaxBottom();
+            }
+        }
+
+
         bController = collision.gameObject.GetComponent<BallController>();
 
         if(bController != null)
@@ -33,4 +52,24 @@ public class ColliderController : MonoBehaviour
         }
     }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (boundaryType == BoundaryType.topBoundary)
+        {
+            pController = collision.gameObject.GetComponent<PlayerMoveScript>();
+            if (pController != null)
+            {
+                pController.LeftMaxTop();
+            }
+        }
+
+        if (boundaryType == BoundaryType.bottomBoundary)
+        {
+            pController = collision.gameObject.GetComponent<PlayerMoveScript>();
+            if (pController != null)
+            {
+                pController.LeftMaxBottom();
+            }
+        }
+    }
 }
