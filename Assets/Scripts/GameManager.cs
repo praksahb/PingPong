@@ -31,13 +31,7 @@ public class GameManager : MonoBehaviour
     private ScoreController scoreController;
 
     [SerializeField]
-    private TimerTextController timerTextController;
-
-    [SerializeField]
-    private float countDownTimer = 3;
-    [SerializeField]
     private int topScore;
-    private bool isTimerRunning;
 
     private void Awake()
     {
@@ -54,8 +48,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        isTimerRunning = true;
-        countDownTimer = 3;
     }
 
     private void Update()
@@ -68,24 +60,6 @@ public class GameManager : MonoBehaviour
         if (player2.score >= topScore)
         {
             GameWon(player2.player);
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        if (isTimerRunning)
-        {
-            if (countDownTimer > 0)
-            {
-                countDownTimer -= Time.fixedDeltaTime;
-                timerTextController.DisplayTime(countDownTimer);
-            }
-            else
-            {
-                countDownTimer = 0;
-                isTimerRunning = false;
-                ballController.StartBallMovement();
-            }
         }
     }
 
@@ -116,10 +90,6 @@ public class GameManager : MonoBehaviour
         }
 
         ballController.ResetBallPosition();
-
-        countDownTimer = 3;
-        isTimerRunning = true;
-        //ballController.StartBallMovement();
     }
 
     public int TrackScore(Player pType)

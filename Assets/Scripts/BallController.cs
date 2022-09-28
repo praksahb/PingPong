@@ -1,15 +1,22 @@
-using System;
+
 using UnityEngine;
-using Random = System.Random;
 
 public class BallController : MonoBehaviour
 {
     [SerializeField]
     private float ballSpeed;
 
+    [SerializeField]
+    private float countDownTimer = 3;
+
+
+    [SerializeField]
+    private TimerTextController timerTextController;
+
     private Rigidbody2D ballRb2d;
 
     private Vector2 ballMoveSpeed;
+    private bool isTimerRunning = true;
 
     private void Awake()
     {
@@ -23,21 +30,37 @@ public class BallController : MonoBehaviour
         transform.position = new Vector2(0, 0);
         ballRb2d.velocity *= 0;
         ballRb2d.angularVelocity = 0;
+        ballRb2d.rotation = 0;
+        countDownTimer = 3;
+        isTimerRunning = true;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        //print("angularVelocity: " + ballRb2d.angularVelocity);
+        if (isTimerRunning)
+        {
+            if (countDownTimer > 0)
+            {
+                countDownTimer -= Time.deltaTime;
+                timerTextController.DisplayTime(countDownTimer);
+            }
+            else
+            {
+                countDownTimer = 0;
+                isTimerRunning = false;
+                StartBallMovement();
+            }
+        }
     }
 
     public void StartBallMovement()
     {
-        float numSwitch = UnityEngine.Random.Range(0, 3) > 1 ? 1f : -1f;
+        float numSwitch = Random.Range(0, 3) > 1 ? 1f : -1f;
 
         AddTorqueAndForce(25f, numSwitch);
     }
 
-    // Add an impulse which produces a change in angular velocity (specified in degrees).
+
     public void AddTorqueAndForce(float angularChangeInDegrees, float numSwitch)
     {
         var impulse = (angularChangeInDegrees * Mathf.Deg2Rad) * ballRb2d.inertia;
