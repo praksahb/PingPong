@@ -41,6 +41,24 @@ public class ColliderController : MonoBehaviour
                 pController.LeftMaxBottom();
             }
         }
+        if (boundaryType == BoundaryType.leftBoundary)
+        {
+            pController = collision.gameObject.GetComponent<PlayerMoveScript>();
+
+            if (pController != null)
+            {
+                pController.LeftMaxLeft();
+            }
+        }
+        if (boundaryType == BoundaryType.rightBoundary)
+        {
+            pController = collision.gameObject.GetComponent<PlayerMoveScript>();
+
+            if (pController != null)
+            {
+                pController.LeftMaxRight();
+            }
+        }
     }
 
     private void PlayerMovementRestriction(Collision2D collision)
@@ -59,6 +77,26 @@ public class ColliderController : MonoBehaviour
             if (pController != null)
             {
                 pController.ReachedMaxBottom();
+            }
+        }
+
+        if (boundaryType == BoundaryType.leftBoundary)
+        {
+            pController = collision.gameObject.GetComponent<PlayerMoveScript>();
+
+            if (pController != null)
+            {
+                print("tick");
+                pController.ReachedMaxLeft();
+            }
+        }
+        if (boundaryType == BoundaryType.rightBoundary)
+        {
+            pController = collision.gameObject.GetComponent<PlayerMoveScript>();
+
+            if (pController != null)
+            {
+                pController.ReachedMaxRight();
             }
         }
     }

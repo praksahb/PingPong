@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMoveScript : MonoBehaviour
@@ -17,9 +18,7 @@ public class PlayerMoveScript : MonoBehaviour
     [SerializeField]
     private KeyCode moveKeyRight;
 
-
     private Rigidbody2D playerRb2D;
-
 
     private bool moveUp;
     private bool moveDown;
@@ -28,6 +27,8 @@ public class PlayerMoveScript : MonoBehaviour
 
     private bool isMaxTopReached = false;
     private bool isMaxBottomReached = false;
+    private bool isMaxLeftReached = false;
+    private bool isMaxRightReached = false;
 
     private void Awake()
     {
@@ -85,8 +86,8 @@ public class PlayerMoveScript : MonoBehaviour
         }
 
         //horizontal
-        if (moveLeft) playerRb2D.MovePosition(playerRb2D.position + (Vector2.left * moveSpeedHorizontal * Time.fixedDeltaTime));
-        if(moveRight) playerRb2D.MovePosition(playerRb2D.position + Vector2.right * moveSpeedHorizontal * Time.fixedDeltaTime);
+        if (moveLeft && !isMaxLeftReached) playerRb2D.MovePosition(playerRb2D.position + Vector2.left * moveSpeedHorizontal * Time.fixedDeltaTime);
+        if (moveRight && !isMaxRightReached) playerRb2D.MovePosition(playerRb2D.position + Vector2.right * moveSpeedHorizontal * Time.fixedDeltaTime);
     }
 
     public void ReachedMaxTop()
@@ -116,8 +117,39 @@ public class PlayerMoveScript : MonoBehaviour
         }
     }
 
-    private void SwitchBoolValue(bool MaxTopOrBottom)
+    public void ReachedMaxLeft()
     {
-        MaxTopOrBottom = !MaxTopOrBottom;
+        if (!isMaxLeftReached)
+            isMaxLeftReached = true;
+    }
+
+    public void LeftMaxLeft()
+    {
+        if (isMaxLeftReached)
+        {
+            isMaxLeftReached = false;
+        }
+    }
+
+    public void ReachedMaxRight()
+    {
+        if (!isMaxRightReached)
+            isMaxRightReached = true;
+    }
+
+    public void LeftMaxRight()
+    {
+        if (isMaxRightReached)
+        {
+            isMaxRightReached = false;
+        }
+    }
+
+    public void SwitchBoolValue(bool maxBool, bool switchedValue)
+    {
+        if(maxBool != switchedValue)
+        {
+            maxBool = switchedValue;
+        }
     }
 }
