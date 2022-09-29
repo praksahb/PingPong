@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class BallController : MonoBehaviour
@@ -25,7 +24,7 @@ public class BallController : MonoBehaviour
         ballMoveSpeed = new Vector2(1,1) * ballSpeed;
     }   
 
-    public void ResetBallPosition()
+    public void ResetBall()
     {
         transform.position = new Vector2(0, 0);
         ballRb2d.velocity *= 0;

@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
             player2.score++;
         }
 
-        ballController.ResetBallPosition();
+        ballController.ResetBall();
     }
 
     public int TrackScore(Player pType)

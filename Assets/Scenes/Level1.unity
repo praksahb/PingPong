@@ -1071,8 +1071,6 @@ MonoBehaviour:
   ballController: {fileID: 1033734066}
   gameWonController: {fileID: 2106433610}
   scoreController: {fileID: 2039745390}
-  timerTextController: {fileID: 1861637093}
-  countDownTimer: 3
   topScore: 5
 --- !u!4 &782771564
 Transform:
@@ -1444,6 +1442,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballSpeed: 10
+  countDownTimer: 3
+  timerTextController: {fileID: 1861637093}
 --- !u!58 &1033734067
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1736,10 +1736,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 371032b855b058146a58abffb47701ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeedVertical: 10
+  moveSpeedHorizontal: 5
   playerType: 0
   moveKeyUp: 119
   moveKeyDown: 115
+  moveKeyLeft: 97
+  moveKeyRight: 100
 --- !u!50 &1304457206
 Rigidbody2D:
   serializedVersion: 4
@@ -2386,10 +2389,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 371032b855b058146a58abffb47701ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeedVertical: 10
+  moveSpeedHorizontal: 5
   playerType: 1
   moveKeyUp: 273
   moveKeyDown: 274
+  moveKeyLeft: 276
+  moveKeyRight: 275
 --- !u!1 &1861637089
 GameObject:
   m_ObjectHideFlags: 0
