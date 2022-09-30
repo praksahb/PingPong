@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BallController : MonoBehaviour
@@ -17,12 +18,20 @@ public class BallController : MonoBehaviour
     private Vector2 ballMoveSpeed;
     private bool isTimerRunning = true;
 
+    private IEnumerator coroutine;
+    private bool isCoroutineCalled;
+
     private void Awake()
     {
         ballRb2d = GetComponent<Rigidbody2D>();
 
         ballMoveSpeed = new Vector2(1,1) * ballSpeed;
-    }   
+    }
+
+    private void Start()
+    {
+        isCoroutineCalled = true;
+    }
 
     public void ResetBall()
     {
@@ -32,9 +41,33 @@ public class BallController : MonoBehaviour
         ballRb2d.rotation = 0;
         countDownTimer = 3;
         isTimerRunning = true;
+        isCoroutineCalled = true;
     }
 
     private void Update()
+    {
+        RunCountdownTimer();
+        CallCoroutine();
+    }
+
+    private void CallCoroutine()
+    {
+        if (isCoroutineCalled && this.coroutine  == null)
+        {
+            isCoroutineCalled = false;
+            this.coroutine = CountdownTime();
+            StartCoroutine(this.coroutine);
+        }
+    }
+
+    IEnumerator CountdownTime()
+    {
+        yield return new WaitForSeconds(countDownTimer);
+        StartBallMovement();
+        this.coroutine = null;
+    }
+
+    private void RunCountdownTimer()
     {
         if (isTimerRunning)
         {
@@ -47,7 +80,6 @@ public class BallController : MonoBehaviour
             {
                 countDownTimer = 0;
                 isTimerRunning = false;
-                StartBallMovement();
             }
         }
     }
