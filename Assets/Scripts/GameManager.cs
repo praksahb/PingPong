@@ -1,5 +1,16 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+public class Players
+{
+    public Player player;
+    public int score;
+
+    public Players(Player player)
+    {
+        this.player = player;
+        this.score = 0;
+    }
+}
 
 public class GameManager : MonoBehaviour
 {
@@ -20,18 +31,12 @@ public class GameManager : MonoBehaviour
     private ScoreController scoreController;
 
     [SerializeField]
-    private TimerTextController timerTextController;
-
-    [SerializeField]
-    private float countDownTimer = 3;
-    [SerializeField]
     private int topScore;
-    private bool isTimerRunning;
 
     private void Awake()
     {
         CreateCheckSingleton();
-
+        
         player1 = new Players(Player.red);
         player2 = new Players(Player.blue);
 
@@ -43,8 +48,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        isTimerRunning = true;
-        countDownTimer = 3;
     }
 
     private void Update()
@@ -57,25 +60,6 @@ public class GameManager : MonoBehaviour
         if (player2.score >= topScore)
         {
             GameWon(player2.player);
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        if (isTimerRunning)
-        {
-            if (countDownTimer > 0)
-            {
-                countDownTimer -= Time.fixedDeltaTime;
-                Debug.Log(countDownTimer);
-                timerTextController.DisplayTime(countDownTimer);
-            }
-            else
-            {
-                countDownTimer = 0;
-                isTimerRunning = false;
-                ballController.StartBallMovement();
-            }
         }
     }
 
@@ -105,9 +89,7 @@ public class GameManager : MonoBehaviour
             player2.score++;
         }
 
-        ballController.ResetBallPosition();
-
-        ballController.StartBallMovement();
+        ballController.ResetBall();
     }
 
     public int TrackScore(Player pType)
@@ -138,17 +120,5 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-    }
-}
-
-public class Players
-{
-    public Player player;
-    public int score;
-
-    public Players(Player player)
-    {
-        this.player = player;
-        this.score = 0;
     }
 }
